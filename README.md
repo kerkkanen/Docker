@@ -1,3 +1,3 @@
 # Docker
 
-University of Helsinki's DevOps with Docker -course exrcises 
+Exercises for the course DevOps with Docker in the University of Helsinki.
