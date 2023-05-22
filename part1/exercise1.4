@@ -1,0 +1,12 @@
+katjaker@lx0-fuxi017:~$ docker run -d -it --name helsinki ubuntu sh -c 'while true; do echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website; done'
+...
+katjaker@lx0-fuxi017:~$ docker exec -it helsinki /bin/bash
+
+.....
+
+root@cb3cdca2a8e3:/# apt-get update
+...
+root@cb3cdca2a8e3:/# apt-get -y install curl
+
+
+
