@@ -1,0 +1,5 @@
+katjaker@lx0-fuxi017:~$ docker images
+REPOSITORY   TAG       IMAGE ID   CREATED   SIZE
+katjaker@lx0-fuxi017:~$ docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+katjaker@lx0-fuxi017:~$ 
