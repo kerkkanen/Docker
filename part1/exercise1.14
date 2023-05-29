@@ -1,0 +1,55 @@
+Backend:
+
+FROM golang:1.16
+
+WORKDIR /usr/src/app
+
+EXPOSE 8080
+
+ENV REQUEST_ORIGIN http://localhost:5000
+
+ENV REDIS_HOST 6379
+
+COPY . .
+
+RUN go build
+
+CMD ["./server"]
+
+
+...
+
+docker run -p 8080:8080 backend
+
+--------------------------------
+
+Frontend:
+
+FROM node:16
+
+WORKDIR /usr/src/app
+
+EXPOSE 5000
+
+COPY package* .
+
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
+
+RUN apt install -y nodejs
+
+RUN node -v && npm -v
+
+RUN npm install
+
+COPY . .
+
+ENV REACT_APP_BACKEND_URL=http://localhost:8080
+
+RUN npm run build && npm install -g serve
+
+CMD ["serve", "-s", "-l", "5000", "build"]
+
+
+...
+
+docker run -p 5000:5000 frontend
