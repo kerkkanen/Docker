@@ -1,0 +1,31 @@
+version: '3.8'
+services:
+  backend:
+    image: backend
+    ports:
+      - 127.0.0.1:8080:8080
+    environment:
+      - REQUEST_ORIGIN=http://localhost:5000
+      - REDIS_HOST=redis
+      - POSTGRES_HOST=db
+    command: ["./server"]
+  frontend:
+    image: frontend
+    ports:
+      - 127.0.0.1:5000:5000
+    environment:
+      - REACT_APP_BACKEND_URL=http://localhost:8080
+    command: ["serve","-s","-l","5000","build"]
+  redis:
+    image: redis
+  db:
+    image: postgres:12.2-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - type: bind
+        source: ./database
+        target: /var/lib/postgresql/data
+volumes:
+  database:

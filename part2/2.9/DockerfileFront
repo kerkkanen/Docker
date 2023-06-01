@@ -1,0 +1,21 @@
+FROM node:16
+
+WORKDIR /usr/src/app
+
+COPY package* .
+
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash
+
+RUN apt install -y nodejs
+
+RUN node -v && npm -v
+
+RUN npm install
+
+COPY . .
+
+ENV REACT_APP_BACKEND_URL=http://localhost/api/
+
+RUN npm run build && npm install -g serve
+
+CMD ["serve", "-s", "build"]
