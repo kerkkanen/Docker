@@ -8,6 +8,6 @@ Frontend Dockerfile:
 ENV REACT_APP_BACKEND_URL=http://localhost:8080 --> ENV REACT_APP_BACKEND_URL=http://localhost/api/
  
 
-Changed made for 2.10
+Changes made for 2.10
 
 Removed EXPOSE from both back and front Dockerfiles and removed port information from both in docker-compose.yml.
