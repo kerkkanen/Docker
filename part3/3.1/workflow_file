@@ -1,0 +1,28 @@
+
+name: Release NodeJS app
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repository
+      - uses: actions/checkout@v3
+    
+      # Login to Docker
+      - name: login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      # Build
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: victoriousglorious/expressapp:latest
