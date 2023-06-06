@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  button:
+    image: victoriousglorious/button
+    ports:
+      - 8080:8080
+    container_name: button
+
+  watchtower:
+    image: containrrr/watchtower
+    environment:
+      -  WATCHTOWER_POLL_INTERVAL=20
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    container_name: watchtower
+    command: button
