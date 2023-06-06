@@ -1,4 +1,4 @@
-FROM golang:1.16
+FROM golang:1.16-alpine
 
 WORKDIR /usr/src/app
 
@@ -7,6 +7,10 @@ EXPOSE 8080
 ENV REQUEST_ORIGIN http://localhost:5000
 
 COPY . .
+
+RUN addgroup -S appusers && adduser -S appuser -G appusers 
+
+RUN chown -R appuser:appusers /usr/src/app
 
 RUN go build
 
