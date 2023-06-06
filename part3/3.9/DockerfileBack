@@ -1,0 +1,22 @@
+FROM golang:1.16-alpine as build-stage
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+RUN apk add --no-cache git && \
+    go get -d -v ./... && \
+    go build -o /server
+
+
+FROM scratch
+
+COPY --from=build-stage /server /server
+
+EXPOSE 8080
+
+ENV REQUEST_ORIGIN http://localhost:5000
+
+USER 1001
+
+CMD ["./server"]

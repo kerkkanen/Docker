@@ -1,0 +1,20 @@
+FROM node:16
+
+WORKDIR /usr/src/app
+
+EXPOSE 5000
+
+COPY package* .
+
+COPY . .
+
+RUN npm install && \
+    npm run build && \
+    npm install -g serve && \
+    useradd -m appuser && \
+    chown -R appuser:appuser /usr/src/app && \
+    chmod -R u+rwx /usr/src/app
+
+USER appuser
+
+CMD ["serve", "-s", "-l", "5000", "build"]
